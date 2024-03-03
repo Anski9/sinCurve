@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sin curve</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <h1>Function calculator</h1>
+        <div id="function">
+            <form id="functionForm">
+                <label for="functionInput">Function f(x) return value:</label>
+                <input type="text" id="functionInput" value="x*x" required placeholder="x*x">
+                <label for="startX">Start of x range:</label>
+                <input type="number" id="startX" value="0" required placeholder="0">
+                <label for="endX">End of x range:</label>
+                <input type="number" id="endX" value="100" required placeholder="100">
+                <label for="xStep">x step:</label>
+                <input type="number" id="xStep" value="1" required placeholder="1">
+                <label for="yFactor">y scale factor:</label>
+                <input type="number" id="yFactor" value="1" required placeholder="1">
+                <button id="calculate">Calculate</button>
+            </form>
+        </div>
+        <canvas id="sinChart"></canvas>
+        <div id="results"></div>
+    </body>
+</html>
