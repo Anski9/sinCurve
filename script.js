@@ -5,13 +5,19 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-//Luetaan syötteet
+//Haetaan ja tallennetaan käyttäjän syötteet muuttujiin
 function inputs() {
     const functionInput = document.getElementById("functionInput").value;
     const startX = parseFloat(document.getElementById("startX").value);
     const endX = parseFloat(document.getElementById("endX").value);
     const xStep = parseFloat(document.getElementById("xStep").value);
     const yFactor = parseFloat(document.getElementById("yFactor").value);
+
+    //Tarkistetaan, että xstep on positiivinen
+    if (xStep < 0) {
+        alert("x step must be a positive number");
+        return;
+    }
     
     //Lasketaan tulokset
     try {
@@ -24,6 +30,7 @@ function inputs() {
                 data.push({x: x, y: y});
             }
         }
+        //Näytetään lasketut arvot sivulla
         const resultsElement = document.getElementById("results");
         let funktionResults = "";
         data.forEach(point => {
@@ -37,6 +44,7 @@ function inputs() {
     }
 }
 
+//Kuvaajan päivittäminen
 function updateChart(data, functionLabel) {
     const chartContext = document.getElementById("sinChart").getContext("2d");
     if (window.myChart) {
@@ -44,7 +52,7 @@ function updateChart(data, functionLabel) {
         window.myChart.data.datasets[0].data = data;
         window.myChart.data.datasets[0].label = `f(x) =${functionLabel}`;
         window.myChart.update();
-    } else {
+    } else {   //Luodaan uusi kuvaaja mikäli sitä ei vielä ole
         window.myChart = new Chart(chartContext, {
             type: "line",
             data: {
@@ -53,11 +61,24 @@ function updateChart(data, functionLabel) {
                     label: `f(x) = ${functionLabel}`,
                     data: data,
                     borderColor: "magenta",
-                    fill: false
+                    fill: false,
+                    tension: 0.4
                 }]
             },
             options: {
-                responsive: true
+                responsive: true,
+                scales: {
+                    x: {
+                        ticks: {
+                            stepSize: 0.1 //Asetetaan x-akselin arvot 0.1 välein
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            stepSize: 0.1 //Asetetaan y-akselin arvot 0.1 välein
+                        }
+                    }
+                }
             }
         });
     }
