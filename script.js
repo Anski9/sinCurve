@@ -14,8 +14,13 @@ function inputs() {
     const yFactor = parseFloat(document.getElementById("yFactor").value);
 
     //Tarkistetaan, että xstep on positiivinen
-    if (xStep < 0) {
+    if (xStep <= 0) {
         alert("x step must be a positive number");
+        return;
+    }
+    //Tarkistetaan ettei aloituspiste ole suurempi kuin lopetuspiste
+    if (startX > endX) {
+        alert("Start of x range must be smaller than end of x range");
         return;
     }
     
